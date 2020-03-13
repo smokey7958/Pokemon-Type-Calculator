@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<head>	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>寶可夢屬性計算機 V.0310 Powered by Ven</title>
+	<!--<link rel="stylesheet" href="css/bootstrap.css">-->
+	<link rel="stylesheet" href="css/bootstrapr.css">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/ui-lightness/jquery-ui.css">
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/ui-lightness/jquery-ui.css">
+	<link rel="stylesheet" href="css/roudemo.css">
+	<style type="text/css">
+		.top-title{
+			font-family: sans-serif;
+			font-weight: bold;
+			text-align: center;
+		}
+		.rwd-table{
+			margin: 10px auto auto 10px;
+		}
+		.fixed_headers {
+		  width: auto;
+		  /*table-layout: fixed;*/
+		  border-collapse: collapse;
+		}
+		.fixed_headers th {
+		  /*text-decoration: underline;*/
+		}
+		.fixed_headers th,
+		.fixed_headers td {
+		  padding: 5px;
+		  border: 1px solid #FFF;
+		  text-align: center;
+		}
+		td,th {
+		  width: 80px;
+		}
+		.ta0,.tb0,.tc0,.td0,.te0,.tf0,.tg0,.th0{
+			width: 100px;
+		}
+		.fixed_headers thead {
+		  background-color: #333;
+		  color: #fdfdfd;
+		}
+		.fixed_headers thead tr {
+		  display: block;
+		  position: relative;
+		}
+		.fixed_headers tbody {
+		  display: block;
+		  overflow: auto;
+		  width: 100%;
+		  height: 300px;
+		}
+		.fixed_headers tbody tr:nth-child(even) {
+		  background-color: #ddd;
+		}
+		.old_ie_wrapper {
+		  height: 300px;
+		  width: 750px;
+		  overflow-x: hidden;
+		  overflow-y: auto;
+		}
+		.old_ie_wrapper tbody {
+		  height: auto;
+		}
+		.fulla{
+			width: 100%;
+			height: 100%;
+		}
+		.rwd-table-th .fulla{
+			color: #FFF;
+		}
+		.rwd-table-td .fulla{
+			color: #000;
+		}
+		.th1{ background-color: #9199A1; }
+		.th2{ background-color: #FE9C54; }
+		.th3{ background-color: #4F90D5; }
+		.th4{ background-color: #F4D23C; }
+		.th5{ background-color: #62BB5A; }
+		.th6{ background-color: #73CEBF; }
+		.th7{ background-color: #CD406A; }
+		.th8{ background-color: #A96AC8; }
+		.th9{ background-color: #D87844; }
+		.th10{ background-color: #8EA8DE; }
+		.th11{ background-color: #F97178; }
+		.th12{ background-color: #91C02E; }
+		.th13{ background-color: #C5B78B; }
+		.th14{ background-color: #5269AC; }
+		.th15{ background-color: #0A6DC2; }
+		.th16{ background-color: #5A5365; }
+		.th17{ background-color: #5A8DA1; }
+		.th18{ background-color: #EB8FE6; }
+		.desc-title{
+			margin-left: 20px;
+			font-family: sans-serif;
+		}
+		.desc-p{
+			margin-left: 20px;
+			font-family: sans-serif;
+			font-size: 14pt;
+		}
+
+	</style>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]--> 
+    <!--
+    <script src="js/jquery.min.js"></script>
+	-->
+	<!-- list -->
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+	<script src="js/jq341.js"></script>
+	<link rel="stylesheet" type="text/css" href="bootstrap3-editable/css/bootstrap-editable.css">
+	<script type="text/javascript">
+		$(document).ready(function(e){
+			var textArray = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var stArray = [6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6,6];
+			var pm1Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var pm2Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var pm3Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var pm4Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var pm5Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var pm6Array = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+			var ptStringArray = ["","一般","火","水","電","草","冰","格鬥","毒","地面","飛行","超能","蟲","岩石","幽靈","龍","惡","鋼","妖精"];
+			var counter = 0;
+			var click = 0;
+			var secClick = 0;
+			function stat(){
+					for (var i = 0; i < 18; i++) {
+						stArray[i] = pm1Array[i] + pm2Array[i] + pm3Array[i] + pm4Array[i] + pm5Array[i] + pm6Array[i];
+					}
+			}
+			function reset(){
+				counter = 0;
+				for (var i = 0; i < 18; i++) {
+					textArray[i] = 1;
+					stArray[i] = 6;
+					pm1Array[i] = 1;
+					pm2Array[i] = 1;
+					pm3Array[i] = 1;
+					pm4Array[i] = 1;
+					pm5Array[i] = 1;
+					pm6Array[i] = 1;
+				}
+				$(".ta0").text("PM1");
+				$(".tb0").text("PM2");
+				$(".tc0").text("PM3");
+				$(".te0").text("PM4");
+				$(".tf0").text("PM5");
+				$(".tg0").text("PM6");
+			}
+			function reload(){
+				if (counter==1) {
+					for (var i = 0; i < 18; i++) {
+						pm1Array[i] = textArray[i];
+					}
+					$(".ta0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==2) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm1Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".ta0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==3) {
+					for (var i = 0; i < 18; i++) {
+						pm2Array[i] = textArray[i];
+					}
+					$(".tb0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==4) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm2Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".tb0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==5) {
+					for (var i = 0; i < 18; i++) {
+						pm3Array[i] = textArray[i];
+					}
+					$(".tc0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==6) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm3Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".tc0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==7) {
+					for (var i = 0; i < 18; i++) {
+						pm4Array[i] = textArray[i];
+					}
+					$(".te0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==8) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm4Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".te0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==9) {
+					for (var i = 0; i < 18; i++) {
+						pm5Array[i] = textArray[i];
+					}
+					$(".tf0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==10) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm5Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".tf0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==11) {
+					for (var i = 0; i < 18; i++) {
+						pm6Array[i] = textArray[i];
+					}
+					$(".tg0").text(ptStringArray[click]);
+					secClick = click;
+					stat();
+				}
+				if (counter==12) {
+					if (secClick != click) {
+						for (var i = 0; i < 18; i++) {
+							pm6Array[i] = textArray[i];
+							textArray[i] = 1;
+						}
+						$(".tg0").text(ptStringArray[secClick]+"/"+ptStringArray[click]);
+					}else{
+						for (var i = 0; i < 18; i++) {
+							textArray[i] = 1;
+						}
+					}
+					stat();
+				}
+				if (counter==13) {
+					reset();
+				}
+				
+
+
+				$(".td1").text(stArray[0]);
+				$(".td2").text(stArray[1]);
+				$(".td3").text(stArray[2]);
+				$(".td4").text(stArray[3]);
+				$(".td5").text(stArray[4]);
+				$(".td6").text(stArray[5]);
+				$(".td7").text(stArray[6]);
+				$(".td8").text(stArray[7]);
+				$(".td9").text(stArray[8]);
+				$(".td10").text(stArray[9]);
+				$(".td11").text(stArray[10]);
+				$(".td12").text(stArray[11]);
+				$(".td13").text(stArray[12]);
+				$(".td14").text(stArray[13]);
+				$(".td15").text(stArray[14]);
+				$(".td16").text(stArray[15]);
+				$(".td17").text(stArray[16]);
+				$(".td18").text(stArray[17]);
+				$(".ta1").text(pm1Array[0]);
+				$(".ta2").text(pm1Array[1]);
+				$(".ta3").text(pm1Array[2]);
+				$(".ta4").text(pm1Array[3]);
+				$(".ta5").text(pm1Array[4]);
+				$(".ta6").text(pm1Array[5]);
+				$(".ta7").text(pm1Array[6]);
+				$(".ta8").text(pm1Array[7]);
+				$(".ta9").text(pm1Array[8]);
+				$(".ta10").text(pm1Array[9]);
+				$(".ta11").text(pm1Array[10]);
+				$(".ta12").text(pm1Array[11]);
+				$(".ta13").text(pm1Array[12]);
+				$(".ta14").text(pm1Array[13]);
+				$(".ta15").text(pm1Array[14]);
+				$(".ta16").text(pm1Array[15]);
+				$(".ta17").text(pm1Array[16]);
+				$(".ta18").text(pm1Array[17]);
+				$(".tb1").text(pm2Array[0]);
+				$(".tb2").text(pm2Array[1]);
+				$(".tb3").text(pm2Array[2]);
+				$(".tb4").text(pm2Array[3]);
+				$(".tb5").text(pm2Array[4]);
+				$(".tb6").text(pm2Array[5]);
+				$(".tb7").text(pm2Array[6]);
+				$(".tb8").text(pm2Array[7]);
+				$(".tb9").text(pm2Array[8]);
+				$(".tb10").text(pm2Array[9]);
+				$(".tb11").text(pm2Array[10]);
+				$(".tb12").text(pm2Array[11]);
+				$(".tb13").text(pm2Array[12]);
+				$(".tb14").text(pm2Array[13]);
+				$(".tb15").text(pm2Array[14]);
+				$(".tb16").text(pm2Array[15]);
+				$(".tb17").text(pm2Array[16]);
+				$(".tb18").text(pm2Array[17]);
+				$(".tc1").text(pm3Array[0]);
+				$(".tc2").text(pm3Array[1]);
+				$(".tc3").text(pm3Array[2]);
+				$(".tc4").text(pm3Array[3]);
+				$(".tc5").text(pm3Array[4]);
+				$(".tc6").text(pm3Array[5]);
+				$(".tc7").text(pm3Array[6]);
+				$(".tc8").text(pm3Array[7]);
+				$(".tc9").text(pm3Array[8]);
+				$(".tc10").text(pm3Array[9]);
+				$(".tc11").text(pm3Array[10]);
+				$(".tc12").text(pm3Array[11]);
+				$(".tc13").text(pm3Array[12]);
+				$(".tc14").text(pm3Array[13]);
+				$(".tc15").text(pm3Array[14]);
+				$(".tc16").text(pm3Array[15]);
+				$(".tc17").text(pm3Array[16]);
+				$(".tc18").text(pm3Array[17]);
+				$(".te1").text(pm4Array[0]);
+				$(".te2").text(pm4Array[1]);
+				$(".te3").text(pm4Array[2]);
+				$(".te4").text(pm4Array[3]);
+				$(".te5").text(pm4Array[4]);
+				$(".te6").text(pm4Array[5]);
+				$(".te7").text(pm4Array[6]);
+				$(".te8").text(pm4Array[7]);
+				$(".te9").text(pm4Array[8]);
+				$(".te10").text(pm4Array[9]);
+				$(".te11").text(pm4Array[10]);
+				$(".te12").text(pm4Array[11]);
+				$(".te13").text(pm4Array[12]);
+				$(".te14").text(pm4Array[13]);
+				$(".te15").text(pm4Array[14]);
+				$(".te16").text(pm4Array[15]);
+				$(".te17").text(pm4Array[16]);
+				$(".te18").text(pm4Array[17]);
+				$(".tf1").text(pm5Array[0]);
+				$(".tf2").text(pm5Array[1]);
+				$(".tf3").text(pm5Array[2]);
+				$(".tf4").text(pm5Array[3]);
+				$(".tf5").text(pm5Array[4]);
+				$(".tf6").text(pm5Array[5]);
+				$(".tf7").text(pm5Array[6]);
+				$(".tf8").text(pm5Array[7]);
+				$(".tf9").text(pm5Array[8]);
+				$(".tf10").text(pm5Array[9]);
+				$(".tf11").text(pm5Array[10]);
+				$(".tf12").text(pm5Array[11]);
+				$(".tf13").text(pm5Array[12]);
+				$(".tf14").text(pm5Array[13]);
+				$(".tf15").text(pm5Array[14]);
+				$(".tf16").text(pm5Array[15]);
+				$(".tf17").text(pm5Array[16]);
+				$(".tf18").text(pm5Array[17]);
+				$(".tg1").text(pm6Array[0]);
+				$(".tg2").text(pm6Array[1]);
+				$(".tg3").text(pm6Array[2]);
+				$(".tg4").text(pm6Array[3]);
+				$(".tg5").text(pm6Array[4]);
+				$(".tg6").text(pm6Array[5]);
+				$(".tg7").text(pm6Array[6]);
+				$(".tg8").text(pm6Array[7]);
+				$(".tg9").text(pm6Array[8]);
+				$(".tg10").text(pm6Array[9]);
+				$(".tg11").text(pm6Array[10]);
+				$(".tg12").text(pm6Array[11]);
+				$(".tg13").text(pm6Array[12]);
+				$(".tg14").text(pm6Array[13]);
+				$(".tg15").text(pm6Array[14]);
+				$(".tg16").text(pm6Array[15]);
+				$(".tg17").text(pm6Array[16]);
+				$(".tg18").text(pm6Array[17]);
+			}
+			$(".tha1").click(function(e){
+				counter += 1;
+				click = 1;
+				textArray[6] = textArray[6]*2;
+				textArray[13] = textArray[13]*0;
+				reload();
+			});
+			$(".tha2").click(function(e){
+				counter += 1;
+				click = 2;
+				textArray[2] = textArray[2]*2;
+				textArray[8] = textArray[8]*2;
+				textArray[12] = textArray[12]*2;
+				textArray[1] = textArray[1]*0.5;
+				textArray[4] = textArray[4]*0.5;
+				textArray[5] = textArray[5]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				textArray[16] = textArray[16]*0.5;
+				textArray[17] = textArray[17]*0.5;
+				reload();
+			});
+			$(".tha3").click(function(e){
+				counter += 1;
+				click = 3;
+				textArray[3] = textArray[3]*2;
+				textArray[4] = textArray[4]*2;
+				textArray[1] = textArray[1]*0.5;
+				textArray[2] = textArray[2]*0.5;
+				textArray[5] = textArray[5]*0.5;
+				reload();
+			});
+			$(".tha4").click(function(e){
+				counter += 1;
+				click = 4;
+				textArray[8] = textArray[8]*2;
+				textArray[3] = textArray[3]*0.5;
+				textArray[9] = textArray[9]*0.5;
+				textArray[16] = textArray[16]*0.5;
+				reload();
+			});
+			$(".tha5").click(function(e){
+				counter += 1;
+				click = 5;
+				textArray[1] = textArray[1]*2;
+				textArray[5] = textArray[5]*2;
+				textArray[7] = textArray[7]*2;
+				textArray[9] = textArray[9]*2;
+				textArray[11] = textArray[11]*2;
+				textArray[2] = textArray[2]*0.5;
+				textArray[3] = textArray[3]*0.5;
+				textArray[4] = textArray[4]*0.5;
+				textArray[8] = textArray[8]*0.5;
+				reload();
+			});
+			$(".tha6").click(function(e){
+				counter += 1;
+				click = 6;
+				textArray[1] = textArray[1]*2;
+				textArray[6] = textArray[6]*2;
+				textArray[12] = textArray[12]*2;
+				textArray[16] = textArray[16]*2;
+				textArray[5] = textArray[5]*0.5;
+				reload();
+			});
+			$(".tha7").click(function(e){
+				counter += 1;
+				click = 7;
+				textArray[9] = textArray[9]*2;
+				textArray[10] = textArray[10]*2;
+				textArray[17] = textArray[17]*2;
+				textArray[11] = textArray[11]*0.5;
+				textArray[12] = textArray[12]*0.5;
+				textArray[15] = textArray[15]*0.5;
+				reload();
+			});
+			$(".tha8").click(function(e){
+				counter += 1;
+				click = 8;
+				textArray[8] = textArray[8]*2;
+				textArray[10] = textArray[10]*2;
+				textArray[4] = textArray[4]*0.5;
+				textArray[7] = textArray[7]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				textArray[6] = textArray[6]*0.5;
+				textArray[17] = textArray[15]*0.5;
+				reload();
+			});
+			$(".tha9").click(function(e){
+				counter += 1;
+				click = 9;
+				textArray[2] = textArray[2]*2;
+				textArray[4] = textArray[4]*2;
+				textArray[5] = textArray[5]*2;
+				textArray[7] = textArray[7]*0.5;
+				textArray[12] = textArray[12]*0.5;
+				textArray[3] = textArray[3]*0;
+				reload();
+			});
+			$(".tha10").click(function(e){
+				counter += 1;
+				click = 10;
+				textArray[3] = textArray[3]*2;
+				textArray[12] = textArray[12]*2;
+				textArray[5] = textArray[5]*2;
+				textArray[4] = textArray[4]*0.5;
+				textArray[6] = textArray[6]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				textArray[8] = textArray[8]*0;
+				reload();
+			});
+			$(".tha11").click(function(e){
+				counter += 1;
+				click = 11;
+				textArray[11] = textArray[11]*2;
+				textArray[13] = textArray[13]*2;
+				textArray[15] = textArray[15]*2;
+				textArray[6] = textArray[6]*0.5;
+				textArray[10] = textArray[10]*0.5;
+				reload();
+			});
+			$(".tha12").click(function(e){
+				counter += 1;
+				click = 12;
+				textArray[1] = textArray[1]*2;
+				textArray[9] = textArray[9]*2;
+				textArray[12] = textArray[12]*2;
+				textArray[4] = textArray[4]*0.5;
+				textArray[6] = textArray[6]*0.5;
+				textArray[8] = textArray[8]*0.5;
+				reload();
+			});
+			$(".tha13").click(function(e){
+				counter += 1;
+				click = 13;
+				textArray[4] = textArray[4]*2;
+				textArray[2] = textArray[2]*2;
+				textArray[6] = textArray[6]*2;
+				textArray[8] = textArray[8]*2;
+				textArray[16] = textArray[16]*2;
+				textArray[0] = textArray[0]*0.5;
+				textArray[1] = textArray[1]*0.5;
+				textArray[7] = textArray[7]*0.5;
+				textArray[9] = textArray[9]*0.5;
+				reload();
+			});
+			$(".tha14").click(function(e){
+				counter += 1;
+				click = 14;
+				textArray[15] = textArray[15]*2;
+				textArray[13] = textArray[13]*2;
+				textArray[0] = textArray[0]*0;
+				textArray[6] = textArray[6]*0;
+				textArray[7] = textArray[7]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				reload();
+			});
+			$(".tha15").click(function(e){
+				counter += 1;
+				click = 15;
+				textArray[5] = textArray[5]*2;
+				textArray[14] = textArray[14]*2;
+				textArray[17] = textArray[17]*2;
+				textArray[2] = textArray[2]*0.5;
+				textArray[1] = textArray[1]*0.5;
+				textArray[3] = textArray[3]*0.5;
+				textArray[4] = textArray[4]*0.5;
+				reload();
+			});
+			$(".tha16").click(function(e){
+				counter += 1;
+				click = 16;
+				textArray[6] = textArray[6]*2;
+				textArray[11] = textArray[11]*2;
+				textArray[17] = textArray[17]*2;
+				textArray[10] = textArray[10]*0;
+				textArray[13] = textArray[13]*0.5;
+				textArray[15] = textArray[15]*0.5;
+				reload();
+			});
+			$(".tha17").click(function(e){
+				counter += 1;
+				click = 17;
+				textArray[6] = textArray[6]*2;
+				textArray[1] = textArray[1]*2;
+				textArray[8] = textArray[8]*2;
+				textArray[7] = textArray[7]*0;
+				textArray[0] = textArray[0]*0.5;
+				textArray[4] = textArray[4]*0.5;
+				textArray[9] = textArray[9]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				textArray[5] = textArray[5]*0.5;
+				textArray[10] = textArray[10]*0.5;
+				textArray[12] = textArray[12]*0.5;
+				textArray[14] = textArray[14]*0.5;
+				textArray[16] = textArray[16]*0.5;
+				textArray[17] = textArray[17]*0.5;
+				reload();
+			});
+			$(".tha18").click(function(e){
+				counter += 1;
+				click = 18;
+				textArray[16] = textArray[16]*2;
+				textArray[7] = textArray[7]*2;
+				textArray[14] = textArray[14]*0;
+				textArray[6] = textArray[6]*0.5;
+				textArray[15] = textArray[15]*0.5;
+				textArray[11] = textArray[11]*0.5;
+				reload();
+			});
+			$(".tda0").click(function(e){
+				reset();
+				reload();
+			});
+			
+			/*
+				0:一般
+				1:火
+				2:水
+				3:電
+				4:草
+				5:冰
+				6:格鬥
+				7:毒
+				8:地面
+				9:飛行
+				10:超能
+				11:蟲
+				12:岩石
+				13:幽靈
+				14:龍
+				15:惡
+				16:鋼
+				17:妖精
+			*/
+		});
+</script>
+</head>
+
+
+
+<body>
+		<H1 class="top-title">Ven的屬性計算機</H1>
+		<table class="fixed_headers rwd-table">
+		  <thead>
+		    <tr class="rwd-table-rowhead">
+  				<th class="rwd-table-th th0"><a href="#" class="fulla tda0">重置</a></th>
+    			<th class="rwd-table-th th1"><a href="#" class="fulla tha1"><img src="img/th1.png"/>一般</a></th>
+    			<th class="rwd-table-th th2"><a href="#" class="fulla tha2"><img src="img/th2.png"/>火</a></th>
+    			<th class="rwd-table-th th3"><a href="#" class="fulla tha3"><img src="img/th3.png"/>水</a></th>
+    			<th class="rwd-table-th th4"><a href="#" class="fulla tha4"><img src="img/th4.png"/>電</a></th>
+    			<th class="rwd-table-th th5"><a href="#" class="fulla tha5"><img src="img/th5.png"/>草</a></th>
+    			<th class="rwd-table-th th6"><a href="#" class="fulla tha6"><img src="img/th6.png"/>冰</a></th>
+    			<th class="rwd-table-th th7"><a href="#" class="fulla tha7"><img src="img/th7.png"/>格鬥</a></th>
+    			<th class="rwd-table-th th8"><a href="#" class="fulla tha8"><img src="img/th8.png"/>毒</a></th>
+    			<th class="rwd-table-th th9"><a href="#" class="fulla tha9"><img src="img/th9.png"/>地面</a></th>
+    			<th class="rwd-table-th th10"><a href="#" class="fulla tha10"><img src="img/th10.png"/>飛行</a></th>
+    			<th class="rwd-table-th th11"><a href="#" class="fulla tha11"><img src="img/th11.png"/>超能</a></th>
+    			<th class="rwd-table-th th12"><a href="#" class="fulla tha12"><img src="img/th12.png"/>蟲</a></th>
+    			<th class="rwd-table-th th13"><a href="#" class="fulla tha13"><img src="img/th13.png"/>岩石</a></th>
+    			<th class="rwd-table-th th14"><a href="#" class="fulla tha14"><img src="img/th14.png"/>幽靈</a></th>
+    			<th class="rwd-table-th th15"><a href="#" class="fulla tha15"><img src="img/th15.png"/>龍</a></th>
+    			<th class="rwd-table-th th16"><a href="#" class="fulla tha16"><img src="img/th16.png"/>惡</a></th>
+    			<th class="rwd-table-th th17"><a href="#" class="fulla tha17"><img src="img/th17.png"/>鋼</a></th>
+    			<th class="rwd-table-th th18"><a href="#" class="fulla tha18"><img src="img/th18.png"/>妖精</a></th>
+    		</tr>
+</a></td>		  </thead>
+		  <tbody>
+		    <tr class="rwd-table-row">
+  				<td class="rwd-table-td td0">統計</td>
+  				<td class="rwd-table-td td1">6</td>
+  				<td class="rwd-table-td td2">6</td>
+  				<td class="rwd-table-td td3">6</td>
+  				<td class="rwd-table-td td4">6</td>
+  				<td class="rwd-table-td td5">6</td>
+  				<td class="rwd-table-td td6">6</td>
+  				<td class="rwd-table-td td7">6</td>
+  				<td class="rwd-table-td td8">6</td>
+  				<td class="rwd-table-td td9">6</td>
+  				<td class="rwd-table-td td10">6</td>
+  				<td class="rwd-table-td td11">6</td>
+  				<td class="rwd-table-td td12">6</td>
+  				<td class="rwd-table-td td13">6</td>
+  				<td class="rwd-table-td td14">6</td>
+  				<td class="rwd-table-td td15">6</td>
+  				<td class="rwd-table-td td16">6</td>
+  				<td class="rwd-table-td td17">6</td>
+  				<td class="rwd-table-td td18">6</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td ta0">PM1</td>
+  				<td class="rwd-table-td ta1">1</td>
+  				<td class="rwd-table-td ta2">1</td>
+  				<td class="rwd-table-td ta3">1</td>
+  				<td class="rwd-table-td ta4">1</td>
+  				<td class="rwd-table-td ta5">1</td>
+  				<td class="rwd-table-td ta6">1</td>
+  				<td class="rwd-table-td ta7">1</td>
+  				<td class="rwd-table-td ta8">1</td>
+  				<td class="rwd-table-td ta9">1</td>
+  				<td class="rwd-table-td ta10">1</td>
+  				<td class="rwd-table-td ta11">1</td>
+  				<td class="rwd-table-td ta12">1</td>
+  				<td class="rwd-table-td ta13">1</td>
+  				<td class="rwd-table-td ta14">1</td>
+  				<td class="rwd-table-td ta15">1</td>
+  				<td class="rwd-table-td ta16">1</td>
+  				<td class="rwd-table-td ta17">1</td>
+  				<td class="rwd-table-td ta18">1</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td tb0">PM2</td>
+  				<td class="rwd-table-td tb1">1</td>
+  				<td class="rwd-table-td tb2">1</td>
+  				<td class="rwd-table-td tb3">1</td>
+  				<td class="rwd-table-td tb4">1</td>
+  				<td class="rwd-table-td tb5">1</td>
+  				<td class="rwd-table-td tb6">1</td>
+  				<td class="rwd-table-td tb7">1</td>
+  				<td class="rwd-table-td tb8">1</td>
+  				<td class="rwd-table-td tb9">1</td>
+  				<td class="rwd-table-td tb10">1</td>
+  				<td class="rwd-table-td tb11">1</td>
+  				<td class="rwd-table-td tb12">1</td>
+  				<td class="rwd-table-td tb13">1</td>
+  				<td class="rwd-table-td tb14">1</td>
+  				<td class="rwd-table-td tb15">1</td>
+  				<td class="rwd-table-td tb16">1</td>
+  				<td class="rwd-table-td tb17">1</td>
+  				<td class="rwd-table-td tb18">1</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td tc0">PM3</td>
+  				<td class="rwd-table-td tc1">1</td>
+  				<td class="rwd-table-td tc2">1</td>
+  				<td class="rwd-table-td tc3">1</td>
+  				<td class="rwd-table-td tc4">1</td>
+  				<td class="rwd-table-td tc5">1</td>
+  				<td class="rwd-table-td tc6">1</td>
+  				<td class="rwd-table-td tc7">1</td>
+  				<td class="rwd-table-td tc8">1</td>
+  				<td class="rwd-table-td tc9">1</td>
+  				<td class="rwd-table-td tc10">1</td>
+  				<td class="rwd-table-td tc11">1</td>
+  				<td class="rwd-table-td tc12">1</td>
+  				<td class="rwd-table-td tc13">1</td>
+  				<td class="rwd-table-td tc14">1</td>
+  				<td class="rwd-table-td tc15">1</td>
+  				<td class="rwd-table-td tc16">1</td>
+  				<td class="rwd-table-td tc17">1</td>
+  				<td class="rwd-table-td tc18">1</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td te0">PM4</td>
+  				<td class="rwd-table-td te1">1</td>
+  				<td class="rwd-table-td te2">1</td>
+  				<td class="rwd-table-td te3">1</td>
+  				<td class="rwd-table-td te4">1</td>
+  				<td class="rwd-table-td te5">1</td>
+  				<td class="rwd-table-td te6">1</td>
+  				<td class="rwd-table-td te7">1</td>
+  				<td class="rwd-table-td te8">1</td>
+  				<td class="rwd-table-td te9">1</td>
+  				<td class="rwd-table-td te10">1</td>
+  				<td class="rwd-table-td te11">1</td>
+  				<td class="rwd-table-td te12">1</td>
+  				<td class="rwd-table-td te13">1</td>
+  				<td class="rwd-table-td te14">1</td>
+  				<td class="rwd-table-td te15">1</td>
+  				<td class="rwd-table-td te16">1</td>
+  				<td class="rwd-table-td te17">1</td>
+  				<td class="rwd-table-td te18">1</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td tf0">PM5</td>
+  				<td class="rwd-table-td tf1">1</td>
+  				<td class="rwd-table-td tf2">1</td>
+  				<td class="rwd-table-td tf3">1</td>
+  				<td class="rwd-table-td tf4">1</td>
+  				<td class="rwd-table-td tf5">1</td>
+  				<td class="rwd-table-td tf6">1</td>
+  				<td class="rwd-table-td tf7">1</td>
+  				<td class="rwd-table-td tf8">1</td>
+  				<td class="rwd-table-td tf9">1</td>
+  				<td class="rwd-table-td tf10">1</td>
+  				<td class="rwd-table-td tf11">1</td>
+  				<td class="rwd-table-td tf12">1</td>
+  				<td class="rwd-table-td tf13">1</td>
+  				<td class="rwd-table-td tf14">1</td>
+  				<td class="rwd-table-td tf15">1</td>
+  				<td class="rwd-table-td tf16">1</td>
+  				<td class="rwd-table-td tf17">1</td>
+  				<td class="rwd-table-td tf18">1</td>
+  			</tr>
+  			<tr class="rwd-table-row">
+  				<td class="rwd-table-td tg0">PM6</td>
+  				<td class="rwd-table-td tg1">1</td>
+  				<td class="rwd-table-td tg2">1</td>
+  				<td class="rwd-table-td tg3">1</td>
+  				<td class="rwd-table-td tg4">1</td>
+  				<td class="rwd-table-td tg5">1</td>
+  				<td class="rwd-table-td tg6">1</td>
+  				<td class="rwd-table-td tg7">1</td>
+  				<td class="rwd-table-td tg8">1</td>
+  				<td class="rwd-table-td tg9">1</td>
+  				<td class="rwd-table-td tg10">1</td>
+  				<td class="rwd-table-td tg11">1</td>
+  				<td class="rwd-table-td tg12">1</td>
+  				<td class="rwd-table-td tg13">1</td>
+  				<td class="rwd-table-td tg14">1</td>
+  				<td class="rwd-table-td tg15">1</td>
+  				<td class="rwd-table-td tg16">1</td>
+  				<td class="rwd-table-td tg17">1</td>
+  				<td class="rwd-table-td tg18">1</td>
+  			</tr>
+		  </tbody>
+		</table>
+		<h3 class="desc-title">說明</h3>
+		<p class="desc-p">點擊對手屬性來看對手整體隊伍的屬性弱點。<br />
+			如果是單屬性就同一個屬性點擊兩次。<br />
+			例如多龍就點擊幽靈及龍系，<br />
+			仙子伊布則點擊妖精系兩次。<br />
+			總計倍率越高的屬性則在選出上越有優勢。
+		</p>
+  </body>
+</html>
